@@ -51,7 +51,8 @@ Getting on-track to avoid ad-hoc project corruption starts with re-establishing 
 
 Simply opening the .uproject file from our filesystem will prompt us to compile the project if the `Development Editor` build config is not up-to-date. This will silently build this config in the background and launch it when it is ready. There is nothing inherently wrong with this but it will become cumbersome when we need more powerful tools for development like [an attached debugger](Debugging%20in%20Unreal%20Engine.md). This option should most commonly be used by Blueprint developers, level designers, and artists in the absence of distributed Editor binary builds for our project as we simply have a better option. These instructions will be for Jetbrains Rider and Visual Studio as these are the only two fully-supported IDEs for Unreal development.
 
-**Ensure that there are no Unreal Editor processes running otherwise you may encounter an UnrealBuildTool error.**
+> [!Warning]
+> Ensure that there are no Unreal Editor processes running otherwise you may encounter an UnrealBuildTool error.
 
 ### Rider
 * Right click our .uproject file 
@@ -70,7 +71,8 @@ Simply opening the .uproject file from our filesystem will prompt us to compile 
 
 With the bad rep Live Coding has, your first instinct may be to disable it. 
 
-❗❗**DO NOT DISABLE LIVE CODING**!!! ❗❗
+> [!DANGER]
+> Do not disable Live Coding.
 
 Disabling Live Coding silently enables Hot Reload which was Epic's previous attempt at integrating hotpatching to C++ which had all of the problems of Live Coding plus more. What we actually want to disable is **Reinstancing** which is what fakes modifying UObject layouts at runtime which can cause permanent asset corruption. Reinstancing can be found in Editor Preferences under Live Coding. This can be set as a project-wide default by adding these lines to `Config/DefaultEditorPerProjectUserSettings.ini`
 
@@ -82,7 +84,8 @@ bEnableReinstancing=False
 We will see later that Live Coding can still be used with its Reinstancing capabilities disabled for a narrow (albeit useful) usecase.
 ## Adding a Class
 
-**Ensure that there are no Unreal Editor processes running (if you ran the Editor previously, close it)**
+> [!Warning]
+> Ensure that there are no Unreal Editor processes running (if you ran the Editor previously, close it)
 
 ### Rider
 * Right click a directory in the module we are working in (likely your Game module, the one named after your project in the solution tree)
