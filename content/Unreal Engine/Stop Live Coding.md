@@ -46,7 +46,7 @@ Thus we have avoided the impossible task of modifying static code at runtime at 
 The last point is the most common symptom of Live Coding and there is no way to tell if we have it until you see duplicate components on our Actor BPs, phantom properties/components that won't go away even after they are removed, and other unexpected behaviors. For the most part there is no way to recover an asset from this 
 
 > [!tip]
-Duplicate components can be potentially fixed with [this plugin](https://github.com/Duroxxigar/ComponentPointerFixer). Not all hope is lost!
+ Duplicate components can be potentially fixed with [this plugin](https://github.com/Duroxxigar/ComponentPointerFixer). Not all hope is lost!
 
 # A Better Unreal C++ Workflow
 
