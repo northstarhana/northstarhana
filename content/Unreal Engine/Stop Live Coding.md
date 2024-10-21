@@ -7,9 +7,11 @@ tags:
   - CSharp
 ---
 If you're new to Unreal and watch any YouTube tutorial or worse, pay for an Unreal course you'd be forgiven for thinking that the sane workflow for adding new C++ classes and modifying them would look something like:
+
 1. Right click "C++ Classes" in the content drawer
 2. Click "New C++ Class"
 3. Name our class and let the Editor "compile" while it's running!
+
 This even looks similar to the Unity workflow with C# scripts, perfect for new users migrating from Unity! Until you run into your first Live Coding bug:
 
 > Why doesn't my new member/property/field show up when I "compile"?
@@ -41,7 +43,10 @@ Thus we have avoided the impossible task of modifying static code at runtime at 
 * We are effectively changing the memory layout of the object, but any code that isn't aware of the change to the temporary copy type will just rush headlong into it expecting to find a member at a specific location and the Editor will crash.
 * There is a chance that garbage or duplicate property information will be copied over to the new copy which if saved to the asset will **permanently** corrupt it.
 
-The last point is the most common symptom of Live Coding and there is no way to tell if we have it until you see duplicate components on our Actor BPs, phantom properties/components that won't go away even after they are removed, and other unexpected behaviors. For the most part there is no way to recover an asset from this (duplicate components can be potentially fixed with [this plugin](https://github.com/Duroxxigar/ComponentPointerFixer) however! Not all hope is lost)
+The last point is the most common symptom of Live Coding and there is no way to tell if we have it until you see duplicate components on our Actor BPs, phantom properties/components that won't go away even after they are removed, and other unexpected behaviors. For the most part there is no way to recover an asset from this 
+
+> [!tip]
+Duplicate components can be potentially fixed with [this plugin](https://github.com/Duroxxigar/ComponentPointerFixer). Not all hope is lost!
 
 # A Better Unreal C++ Workflow
 
@@ -69,10 +74,11 @@ Simply opening the .uproject file from our filesystem will prompt us to compile 
 
 ## Changing Editor Settings
 
-With the bad rep Live Coding has, your first instinct may be to disable it. 
 
 > [!DANGER]
 > Do not disable Live Coding.
+
+With the bad rep Live Coding has, your first instinct may be to disable it. 
 
 Disabling Live Coding silently enables Hot Reload which was Epic's previous attempt at integrating hotpatching to C++ which had all of the problems of Live Coding plus more. What we actually want to disable is **Reinstancing** which is what fakes modifying UObject layouts at runtime which can cause permanent asset corruption. Reinstancing can be found in Editor Preferences under Live Coding. This can be set as a project-wide default by adding these lines to `Config/DefaultEditorPerProjectUserSettings.ini`
 
@@ -114,6 +120,9 @@ Modifying an existing class is similar to adding a class in that you (almost alw
 ## \* Except when you change function bodies
 Remember earlier where we learned about how Live Coding works? Most of the snags of using Live Coding come from Reinstancing (which should be disabled now as prescribed by this guide). The one part of Live Coding that works reliably is **making changes to existing function bodies, excluding constructors**. That being, if you already have a function `AMyActor::BeginPlay`, adding a few lines to `BeginPlay` and live coding with the Editor open will work reliably and at worse can only cause a crash with no permanent corruption **assmuming you have Reinstancing disabled**. This is particularly useful for gameplay code that *must* be spammed in order to see changes in the Play-In-Editor (PIE) window such as movement code, math code, or Slate widget code (or... ImGui 👉👈)
 
-# Addendum (Opinions Ahead)
+# Addendum
+
+> [!warning]
+> Opinions ahead
 
 Expecting gameplay programmers to write bespoke code in C++ is frankly ridiculous. Gameplay and other high-level systems are much better served by a scripting language such as C# or Lua that can be properly hot reloaded as seen in other game engines. Blueprint attempts to fill this niche but falls short in its lack of support for basic features and unwieldy API when it comes to making custom nodes on top of being binary asset based making source control a pain in the ass. Trying to program core systems in Blueprint is silly but C++ being the only full-featured text language to write gameplay code in is even sillier. Thankfully Tim has hinted that UE6 will integrate Verse, Epic's new scripting language used in UEFN, and there is a [community project](https://github.com/UnrealSharp/UnrealSharp) in an experimental state (as of October 2024) looking to bring C# to Unreal.
