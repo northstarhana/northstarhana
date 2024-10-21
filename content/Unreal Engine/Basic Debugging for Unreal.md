@@ -185,3 +185,7 @@ While we did not have to traverse the callstack in order to solve our example bu
 # A Note On Print Debugging
 
 Despite the power interactive debugging gives you, there are still times where print debugging is necessary. For example, if you are debugging movement code and you want to see the velocity of a Character while it moves it would be much more valuable to use print debugging (or even better, the Gameplay Debugger or ImGui) to see the values change over time while you control the Character in PIE. Placing a breakpoint on a hot area of code will have you spamming `F5` to step over while being unable to control the Character in the Editor viewport.
+
+# For Rider Users: EzArgs
+
+EzArgs is a small plugin from JetBrains that allows you to pass launch options when running/debugging easily by typing them into a bar at the top of the IDE. I highly recommend this plugin for anyone using JetBrains IDEs in general, not just for Unreal.
