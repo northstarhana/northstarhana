@@ -25,7 +25,7 @@ This even looks similar to the Unity workflow with C# scripts, perfect for new u
 These are symptoms of using this broken workflow that is often recommended by Unreal educators that don't understand the practical limitations of Live Coding and hotpatching a compiled language like C++.
 # Compiled Language? Managed Language? What's the difference?
 
-C++ is a **statically compiled language** that is converted into machine code to be executed directly on the CPU. This means that the compiler must know the size of all types ahead of time in order to generate the machine code around them. The size of a type cannot change after the program has been compiled as there is no abstraction layer to allow adding/removing parts of memory safely. 
+C++ is a **statically compiled language** that is converted into machine code to be executed directly on the CPU. This means that the compiler must know the size and layout of all types ahead of time in order to generate the machine code around them. The size and layout of a type cannot change after the program has been compiled as there is no abstraction layer to allow adding/removing parts of memory safely. 
 
 Languages like C#, Java, JavaScript, and even Blueprint/Kismet are **managed/intermediate/intepreted languages**. These languages only compile down to bytecode and read by a virtual machine/interpreter that translates these bytecode calls into chunks of machine code that the CPU understands. This can be done either at runtime (known as Just-In-Time compilation or JIT) or at compile time (known as Ahead-of-Time or AOT compilation). This more modular abstraction layer lends itself to features like being able to dynamically swap out code and modify types at runtime as we aren't dealing with memory nearly as directly as a compiled language like C++. The downside to this more abstract approach is the cost of translating these calls to machine code, resulting in poorer performance compared to a compiled language.
 
@@ -46,7 +46,7 @@ Thus we have avoided the impossible task of modifying static code at runtime at 
 * By adding/removing variable and virtual function members (due to the vtable used to resolve which function to call) we are changing the physical layout of the object in memory but any code that isn't aware of the change to the temporary copy type will just rush headlong into it expecting to find a member at a specific location and the Editor will crash.
 * There is a chance that garbage or duplicate property information will be copied over to the new copy which if saved to the asset will **permanently** corrupt it.
 
-The last point is the most common symptom of Live Coding and there is no way to tell if we have it until you see duplicate components on our Actor BPs, phantom properties/components that won't go away even after they are removed, and other unexpected behaviors. For the most part there is no way to recover an asset from this 
+The last point is the most common symptom of Live Coding and there is no way to tell if we have it until you see duplicate components on your Actor BPs, phantom properties/components that won't go away even after they are removed, and other unexpected behaviors. For the most part there is no way to recover an asset from this.
 
 > [!tip]
 > Duplicate components can be potentially fixed with [this plugin](https://github.com/Duroxxigar/ComponentPointerFixer). Not all hope is lost!
@@ -63,14 +63,14 @@ Simply opening the .uproject file from our filesystem will prompt us to compile 
 > Ensure that there are no Unreal Editor processes running otherwise you may encounter an UnrealBuildTool error.
 
 ### Rider
-* Right click our .uproject file 
+* Right click your .uproject file 
 * `Open With > Jetbrains Rider`
 * Once the project is loaded, press alt+F5 or the green "Bug" icon to build and run
 	* This attaches a debugger as well. For more information see [this article](Debugging%20in%20Unreal%20Engine.md).
 * If the build succeeds with no compile errors the Editor will open automatically
 
 ### Visual Studio
-* Right click our .uproject file and click  `Generate Visual Studio Project Files`
+* Right click your .uproject file and click  `Generate Visual Studio Project Files`
 * Once the project is loaded press F5 or the green "Play" arrow that says "Local Windows Debugger" to build and run
 	* This attaches a debugger as well. For more information see [this article](Debugging%20in%20Unreal%20Engine.md).
 * If the build succeeds without errors the Editor will open automatically
@@ -107,7 +107,7 @@ We will see later that Live Coding can still be used with its Reinstancing capab
 Adding files in vanilla Visual Studio is tricky. Because the .sln is fake and does not actually show our real project structure, attempting to add a new file from the solution tree will instead add it to `Intermediate/` which is not actually where our source code is discoverable.
 * Open your file explorer/terminal to where we want to add a new file
 * Create the file in your filesystem
-* Right click our .uproject file and click  `Generate Visual Studio Project Files`
+* Right click your .uproject file and click  `Generate Visual Studio Project Files`
 * Press F5 to compile. If the build succeeds with no compile errors the Editor will open automatically
 
 > [!Tip]
