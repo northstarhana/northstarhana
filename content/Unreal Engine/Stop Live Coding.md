@@ -129,7 +129,7 @@ Modifying an existing class is similar to adding a class in that you (almost alw
 
 Remember earlier where we learned about how Live Coding works? Most of the snags of using Live Coding come from Reinstancing (which should be disabled now as prescribed by this guide). The one part of Live Coding that works reliably is **making changes to existing function bodies, excluding constructors**. 
 
-That being said, if you already have a function `AMyActor::BeginPlay`, adding a few lines to `BeginPlay` and invoke live coding with the Editor open will work reliably and at worse can only cause a crash with no permanent corruption **assmuming you have Reinstancing disabled**. 
+That being said, if you already have a function `AMyActor::BeginPlay`, adding a few lines to `BeginPlay` and invoke live coding with the Editor open will work reliably and at worse can only cause a crash with no permanent corruption **assuming you have Reinstancing disabled**. 
 
 This is particularly useful for gameplay code that *must* be spammed in order to see changes in the Play-In-Editor (PIE) window such as movement code, math code, or Slate widget code (or... ImGui 👉👈)
 
