@@ -33,7 +33,11 @@ Languages like C#, Java, JavaScript, and even Blueprint/Kismet are **managed/int
 
 Out of the box when you press ctrl+alt+f11 to invoke Live Coding after changing a class, two notable things happen:
 
-* Function pointers in existing .dlls are re-linked to a new, patched .dll with your changes, effectively redirecting them
+* New patched executables are created and linked into the running Editor. Existing functions have their first instruction replaced with a jump instruction to the new function.
+
+> [!tip] Extra Info
+> Live++, the technology Epic licenses for Live Coding, requires the `/hotpatch` flag (enabled by default by Unreal) which makes the first instruction in the function at least 2 bytes long. This ensures that Live++ can insert the aforementioned jump instruction. 
+
 * Any UObjects with new or removed UPROPERTY/UFUNCTION members have a new temporary counterpart instanced and then reflected members are copied over to the new object. Functions that use this object type are similarly redirected to the new type.
 
 > [!info]
@@ -46,7 +50,7 @@ Thus we have avoided the impossible task of modifying static code at runtime at 
 * By adding/removing variable and virtual function members (due to the vtable used to resolve which function to call) we are changing the physical layout of the object in memory but any code that isn't aware of the change to the temporary copy type will just rush headlong into it expecting to find a member at a specific location and the Editor will crash.
 * There is a chance that garbage or duplicate property information will be copied over to the new copy which if saved to the asset will **permanently** corrupt it.
 
-The last point is the most common symptom of Live Coding and there is no way to tell if we have it until you see duplicate components on your Actor BPs, phantom properties/components that won't go away even after they are removed, and other unexpected behaviors. For the most part there is no way to recover an asset from this.
+The last point is the most common symptom of Live Coding and there is no way to tell if we have it until you see duplicate components on your Actor BPs, phantom properties/components that won't go away even after they are removed, and other unexpected behavior. For the most part there is no way to recover an asset from this.
 
 > [!tip]
 > Duplicate components can be potentially fixed with [this plugin](https://github.com/Duroxxigar/ComponentPointerFixer). Not all hope is lost!
@@ -57,7 +61,7 @@ Getting on-track to avoid ad-hoc project corruption starts with re-establishing 
 
 ## Starting the Editor
 
-Simply opening the .uproject file from our filesystem will prompt us to compile the project if the `Development Editor` build config is not up-to-date. This will silently build this config in the background and launch it when it is ready. There is nothing inherently wrong with this but it will become cumbersome when we need more powerful tools for development like [an attached debugger](Debugging%20in%20Unreal%20Engine.md). This option should most commonly be used by Blueprint developers, level designers, and artists in the absence of distributed Editor binary builds for our project as we simply have a better option. These instructions will be for Jetbrains Rider and Visual Studio as these are the only two fully-supported IDEs for Unreal development.
+Simply opening the .uproject file from our filesystem will prompt us to compile the project if the `Development Editor` build config is not up-to-date. This will silently build this config in the background and launch it when it is ready. There is nothing inherently wrong with this but it will become cumbersome when we need more powerful tools for development like [an attached debugger](Basic%20Debugging%20for%20Unreal.md). This option should most commonly be used by Blueprint developers, level designers, and artists in the absence of distributed Editor binary builds for our project as we simply have a better option. These instructions will be for Jetbrains Rider and Visual Studio as these are the only two fully-supported IDEs for Unreal development.
 
 > [!Warning]
 > Ensure that there are no Unreal Editor processes running otherwise you may encounter an UnrealBuildTool error.
@@ -66,13 +70,13 @@ Simply opening the .uproject file from our filesystem will prompt us to compile 
 * Right click your .uproject file 
 * `Open With > Jetbrains Rider`
 * Once the project is loaded, press alt+F5 or the green "Bug" icon to build and run
-	* This attaches a debugger as well. For more information see [this article](Debugging%20in%20Unreal%20Engine.md).
+	* This attaches a debugger as well. For more information see [this article](Basic%20Debugging%20for%20Unreal.md).
 * If the build succeeds with no compile errors the Editor will open automatically
 
 ### Visual Studio
 * Right click your .uproject file and click  `Generate Visual Studio Project Files`
 * Once the project is loaded press F5 or the green "Play" arrow that says "Local Windows Debugger" to build and run
-	* This attaches a debugger as well. For more information see [this article](Debugging%20in%20Unreal%20Engine.md).
+	* This attaches a debugger as well. For more information see [this article](Basic%20Debugging%20for%20Unreal.md).
 * If the build succeeds without errors the Editor will open automatically
 
 ## Changing Editor Settings
