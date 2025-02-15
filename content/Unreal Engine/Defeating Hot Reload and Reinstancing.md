@@ -33,13 +33,13 @@ This is the most comprehensive method for preventing users from accessing the af
 > [!Important]
 > You will still be able to use Live Coding with this method! Live Coding without Reinstancing can be used for the following:
 > 
-> Editing function bodies
-> Adding new non-virtual non-reflected functions
-> Editing non-reflected function signatures
-> Adding static variables
-> Adding new non-reflected classes and structs
+> * Editing function bodies
+> * Adding new non-virtual non-reflected functions
+> * Editing non-reflected function signatures
+> * Adding static variables
+> * Adding new non-reflected classes and structs
 >   
->   Users will be able to turn Live Coding on/off through their Editor Preferences without the risk of enabling Hot Reload through a checkbox, but the Reinstancing option will be eliminated entirely.
+>  Users will be able to turn Live Coding on/off through their Editor Preferences without the risk of enabling Hot Reload through a checkbox, but the Reinstancing option will be eliminated entirely.
 
 > [!DANGER]
 > If you are not on a Source Build (i.e. your Unreal Engine installation came from the Epic Games Launcher or from the Linux Binaries webpage), do not attempt this method. Without a full souce build, modifying Engine files is not supported and there is no guarantee that you will be able to compile these changes, leaving your Engine install in a broken state where you'll have to Verify and potentially redownload.
@@ -76,7 +76,6 @@ This is not enough to disable compiling support for Hot Reload. UHT's codegen ha
 		/// The following flags are always ignored when keywords test for allowed conditional blocks
 		/// </summary>
 		AllowedCheckIgnoredFlags = CPPBlock | NotCPPBlock | ZeroBlock | OneBlock | WithHotReload,
-
 ```
 
 Remove `WithHotReload` from the flag:
@@ -85,7 +84,6 @@ Remove `WithHotReload` from the flag:
 		/// The following flags are always ignored when keywords test for allowed conditional blocks
 		/// </summary>
 		AllowedCheckIgnoredFlags = CPPBlock | NotCPPBlock | ZeroBlock | OneBlock,
-
 ```
 
 With that, Hot Reload support will be completely stripped out of all configurations of your Engine project. Good riddance!
@@ -98,7 +96,6 @@ In `Engine/Source/Developer/Windows/LiveCoding/LiveCodingSettings.h`, find the f
 	
 	UPROPERTY(config, EditAnywhere, Category=General, Meta=(EditCondition="bEnabled", DisplayName="Automatically Compile Newly Added C++ Classes"))
 	bool bAutomaticallyCompileNewClasses;
-
 ```
 
 Comment them out or delete them. I recommend commenting them out and leaving a note as to why they were removed.
@@ -110,7 +107,6 @@ Comment them out or delete them. I recommend commenting them out and leaving a n
 	// Without Reinstancing we cannot compile new classes.
 	// UPROPERTY(config, EditAnywhere, Category=General, Meta=(EditCondition="bEnabled", DisplayName="Automatically Compile Newly Added C++ Classes"))
 	// bool bAutomaticallyCompileNewClasses;
-
 ```
 
 `bAutomaticallyCompileNewClasses` is used in the `Tools > New C++ Class...` New Class Wizard. Without Reinstancing it's always going to fail, so we remove the option here. Later, we will add a dialogue box to warn users who are used to this workflow about these changes.
