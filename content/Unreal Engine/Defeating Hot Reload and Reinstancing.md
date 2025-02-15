@@ -7,7 +7,7 @@ If you're reading this, you should know by now that you should [stop live coding
 
 Reinstancing causes rampant asset corruption and sets up false expectations for designers less familiar with the intricacies of the relationship C++ has with the Unreal Editor. 
 
-Hot Reload is simply a less-reliable version of Live Coding + Reinstancing (if you can believe it) that exists as a remnant of the pre-Live++ UE4 days. It gets silently enabled when Live Coding is disabled - most often when users hear word that Live Coding (with Reinstancing on) is no good. or if the developer is using Linux where Live Coding isn't supported and thus Hot Reload is forced on.
+Hot Reload is simply a less-reliable version of Live Coding + Reinstancing (if you can believe it) that exists as a remnant of the pre-Live++ UE4 days. It gets silently enabled when Live Coding is disabled - most often when users hear word that Live Coding (with Reinstancing on) is no good or if the developer is using Linux where Live Coding isn't supported and thus Hot Reload is forced on.
 
 In this article we'll talk about solutions for stopping yourself and other team members from playing with fire and risking corrupting a project's Blueprints.
 
@@ -28,7 +28,7 @@ Now by default Reinstancing will be disabled for all users of your project. This
 
 # Method 2: Permanently Remove Hot Reload and disable Reinstancing Entirely
 
-This is the most comprehensive method for preventing users from accessing the aforementioned dangerous hotpatch operations. but requires that you are on a Source Build of the engine and know how to share this modified build with your team. 
+This is the most comprehensive method for preventing users from accessing the aforementioned dangerous hotpatch operations but requires that you are on a Source Build of the engine and know how to share this modified build with your team. 
 
 > [!Important]
 > You will still be able to use Live Coding with this method! Live Coding without Reinstancing can be used for the following:
