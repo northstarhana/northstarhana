@@ -6,7 +6,7 @@ tags:
   - CPlusPlus
   - CSharp
 ---
-If you're new to Unreal and watch any YouTube tutorial or worse, pay for an Unreal course you'd be forgiven for thinking that the sane workflow for adding new C++ classes and modifying them would look something like:
+If you're new to Unreal, you'd be forgiven for thinking that the sane workflow for adding new C++ classes and modifying them would look something like:
 
 1. Right click "C++ Classes" in the content drawer
 2. Click "New C++ Class"
@@ -17,6 +17,8 @@ This even looks similar to the Unity workflow with C# scripts, perfect for new u
 > Why doesn't my new member/property/field show up when I "compile"?
 
 > Why don't my changes persist after restarting the Editor?
+
+> I changed the constructor to set a default value/run new code but my changes aren't reflected when I Play-In-Editor/restart!
 
 > Why is my Editor crashing?
 
