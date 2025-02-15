@@ -3,7 +3,7 @@ tags:
   - CPlusPlus
   - UnrealEngine
 ---
-If you're reading this, you should know by now that you should [stop live coding](Stop%20Live%20Coding.md). 
+If you're reading this, you should know by now that you shouldn't be [live coding with Reinstancing enabled](Stop%20Live%20Coding.md). 
 
 Reinstancing causes rampant asset corruption and sets up false expectations for designers less familiar with the intricacies of the relationship C++ has with the Unreal Editor. 
 
